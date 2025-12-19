@@ -1,4 +1,5 @@
-import Sp500Chart from "./components/Sp500Chart";
+import SP500Chart from "./components/SP500Chart";
+
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
         S&P 500 Explorer
       </p>
 
-      <Sp500Chart />
+      <SP500Chart />
     </main>
   );
 }
