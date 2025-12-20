@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.services.data_loader import load_sp500_data
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional
 
 
 
@@ -19,9 +20,13 @@ def health():
     return {"status": "ok"}
 
 @app.get("/api/index/history")
-def index_history():
+def index_history(start: Optional[str] = None, end: Optional[str] = None):
     df = load_sp500_data()
 
-    # Convert to JSON-friendly format
+    if start:
+        df = df[df["Date"] >= start]
+    if end:
+        df = df[df["Date"] <= end]
+
     records = df.to_dict(orient="records")
     return {"symbol": "^GSPC", "points": records}
